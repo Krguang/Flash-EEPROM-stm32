@@ -74,10 +74,7 @@ int main(void)
 
   /* USER CODE BEGIN 1 */
 
-	STMFLASH_Write(FLASH_SAVE_ADDR, (uint16_t *)TEXT_Buffer, sizeof(TEXT_Buffer));
-	uint8_t datatemp[sizeof(TEXT_Buffer)];
-	STMFLASH_Read(FLASH_SAVE_ADDR, (uint16_t *)datatemp, sizeof(TEXT_Buffer));
-
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -102,6 +99,13 @@ int main(void)
 
   /* USER CODE BEGIN 2 */
 
+  STMFLASH_Write(FLASH_SAVE_ADDR, (uint16_t *)TEXT_Buffer, sizeof(TEXT_Buffer));
+
+  uint8_t datatemp[sizeof(TEXT_Buffer)];
+  HAL_Delay(10);
+  STMFLASH_Read(FLASH_SAVE_ADDR, (uint16_t *)datatemp, sizeof(TEXT_Buffer));
+  HAL_UART_Transmit(&huart1, datatemp, sizeof(TEXT_Buffer), 0xff);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -111,8 +115,8 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	  HAL_UART_Transmit(&huart1, datatemp, sizeof(TEXT_Buffer), 0xff);
-	  HAL_Delay(1000);
+	  
+	
   }
   /* USER CODE END 3 */
 
